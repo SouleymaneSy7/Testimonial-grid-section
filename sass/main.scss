@@ -1,0 +1,236 @@
+@use "./reset";
+
+// ===============================
+//        Font-Face Config
+// ===============================
+
+@font-face {
+  font-family: "Barlow Semi Condensed";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Barlow Semi Condensed"),
+    url("../assets/fonts/barlow-semi-condensed-medium.woff2") format("woff2"),
+    url("../assets/fonts/barlow-semi-condensed-medium.woff") format("woff"),
+    url("../assets/fonts/barlow-semi-condensed-medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Barlow Semi Condensed";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Barlow Semi Condensed"),
+    url("../assets/fonts/barlow-semi-condensed-semibold.woff2") format("woff2"),
+    url("../assets/fonts/barlow-semi-condensed-semibold.woff") format("woff"),
+    url("../assets/fonts/barlow-semi-condensed-semibold.ttf") format("truetype");
+}
+
+// =====================================
+//        Customs Variables Config
+// =====================================
+
+:root {
+  // Colors
+  --primary-testimonial-clr: hsl(263, 55%, 52%);
+  --profile-border-clr: hsl(264, 82%, 70%);
+  --second-testimonial-clr: hsl(217, 19%, 35%);
+  --third-testimonial-clr: hsl(0, 0%, 81%);
+  --fourth-testimonial-clr: hsl(219, 29%, 14%);
+
+  --verified-graduate: hsla(0, 0%, 81%, 0.5);
+  --paragraph-clr: hsla(0, 0%, 81%, 0.7);
+  --body-bg-clr: hsl(210, 46%, 95%);
+
+  --shadow-clr: hsla(217, 30%, 14%, 0.1);
+  --white: hsl(0, 0%, 100%);
+
+  // Font-Family
+  --font-barlow: "Barlow Semi Condensed", sans-serif;
+
+  // Font Size
+
+  /* Step 0: 13.33px → 14.40px */
+  --base-fs: clamp(0.83rem, calc(0.81rem + 0.1vw), 0.9rem);
+
+  /* Step 2: 19.20px → 22.50px */
+  --heading-2: clamp(1.2rem, calc(1.14rem + 0.29vw), 1.41rem);
+
+  // Font Weight
+  --fw-500: 500;
+  --fw-600: 600;
+
+  // Padding
+  --inline-spacing: 2rem;
+
+  // Margin
+  --block-spacing: min(0.75rem, 2vh);
+
+  // Gap
+  --layout-gap: clamp(1rem, 3vmax, 1.5rem);
+
+  // Box Shadow
+  --testimonial-shadow: 0.3125rem 0.3125rem 1.25rem 0 var(--shadow-clr);
+
+  // Border
+  --profile-border: 0.1875rem solid var(--profile-border-clr);
+
+  // Border Radius
+  --full-radius: 100vmax;
+}
+
+// =========================
+//      Utility Classes
+// =========================
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: var(--layout-gap);
+}
+
+.spacing > * + * {
+  margin-block-start: var(--block-spacing);
+}
+
+.profile-border {
+  border: var(--profile-border);
+}
+
+body {
+  font-family: var(--font-barlow);
+  font-size: var(--base-fs);
+  font-weight: var(--fw-500);
+
+  background-color: var(--body-bg-clr);
+
+  padding: 2.8125rem 1.25rem;
+}
+
+.testimonials-container {
+  --grid-gap: 1.25rem;
+
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.testimonials {
+  --radius: 0.5rem;
+  --max-width: 23.75rem;
+
+  width: min(100%, var(--max-width));
+
+  border-radius: var(--radius);
+  background-color: var(--primary-testimonial-clr);
+
+  color: var(--paragraph-clr);
+
+  padding: var(--inline-spacing);
+  margin-inline: auto;
+}
+
+.profile__img {
+  width: 2.8125rem;
+  height: 2.8125rem;
+  border-radius: var(--full-radius);
+  overflow: hidden;
+}
+
+.profile__name {
+  font-weight: var(--fw-600);
+  color: var(--white);
+}
+
+.profile__status {
+  color: var(--verified-graduate);
+}
+
+.testimonials__title {
+  color: var(--white);
+  font-size: var(--heading-2);
+  font-weight: var(--fw-600);
+}
+
+// Testimonial 1
+.testimonial-1 {
+  background-image: url(../assets/images/bg-pattern-quotation.svg);
+  background-repeat: no-repeat;
+  background-position: 90% 0;
+}
+
+// Testimonial 2
+.testimonial-2 {
+  background-color: var(--second-testimonial-clr);
+}
+
+// Testimonial 3 and Testimonila 5
+.testimonial-3,
+.testimonial-5 {
+  background-color: var(--white);
+
+  box-shadow: var(--testimonial-shadow);
+
+  & .profile__name,
+  .testimonials__title {
+    color: var(--second-testimonial-clr);
+  }
+}
+
+.testimonial-4 {
+  background-color: var(--fourth-testimonial-clr);
+}
+
+// ====================
+//      Attribution
+// ====================
+
+.attribution {
+  text-align: center;
+  margin-block-start: 2rem;
+
+  & p {
+    font-size: 1rem;
+    line-height: 1.1;
+    & span {
+      font-size: 1.75rem;
+      color: var(--primary-testimonial-clr);
+    }
+  }
+
+  & a {
+    font-size: 1.25rem;
+    color: var(--primary-testimonial-clr);
+  }
+}
+
+@media only screen and (min-width: 75em) {
+  body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 0;
+  }
+
+  .testimonials-container {
+    grid-template-columns: repeat(4, 1fr);
+    width: min(100% - 3rem, 80rem);
+  }
+
+  .testimonial-1,
+  .testimonial-4 {
+    grid-column: span 2;
+    width: auto;
+    margin: 0;
+  }
+
+  .testimonial-4 {
+    grid-column-start: 2 / 4;
+  }
+
+  .testimonial-5 {
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 2;
+  }
+}
